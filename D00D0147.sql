@@ -126,7 +126,6 @@ Set @XAMLContent=N'
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
 
-
         </Grid.RowDefinitions>
         <!--Begin Button Filter-->
         <L3:L3Button x:Name="btnFilter" Content="Lọc (F5)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="849,16,-387,0" Width="76" RenderTransformOrigin="1.521,5.96" TabIndex="13" />
@@ -139,26 +138,28 @@ Set @XAMLContent=N'
         <RadioButton x:Name="optReportDate" Visibility="Hidden" GroupName="Time" Content="Ngày" Margin="12,52,0,0" VerticalAlignment="Top" Height="27" TabIndex="6" HorizontalAlignment="Left" Width="47" />
 		
 		<!--Begin Combo Loại nghiệp vụ-->
-		  <dxg:LookUpEdit x:Name="tdbcTransTypeID" HorizontalAlignment="Left" Margin="120,44,0,0" VerticalAlignment="Top" Width="180" DisplayMember="TransTypeID" ValueMember="TransTypeID" PopupWidth="400" ImmediatePopup="True" AutoPopulateColumns="False" Grid.Column="0" Grid.Row="1">
-			<dxg:LookUpEdit.StyleSettings>
-			  <dxg:SearchLookUpEditStyleSettings HighlightedTextBackground="#F5F5DC" HighlightedTextForeground="Black" />
-			</dxg:LookUpEdit.StyleSettings>
-			<dxg:LookUpEdit.PopupContentTemplate>
-			  <ControlTemplate>
-				<dxg:GridControl x:Name="PART_GridControl">
-				  <dxg:GridControl.Columns>
-					<dxg:GridColumn FieldName="TransTypeID" Header="Mã" Width="110" />
-					<dxg:GridColumn FieldName="TransTypeName" Header="Diễn giải" Width="200" />
-				  </dxg:GridControl.Columns>
-				  <dxg:GridControl.View>
-					<dxg:TableView HorizontalScrollbarVisibility="Auto" VerticalScrollbarVisibility="Auto" AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False" AutoWidth="True" AllowBestFit="True" BestFitArea="All" BestFitMode="AllRows" RowStyle="{StaticResource SelectedRowStyle}" />
-				  </dxg:GridControl.View>
-				</dxg:GridControl>
-			  </ControlTemplate>
-			</dxg:LookUpEdit.PopupContentTemplate>
-		  </dxg:LookUpEdit>
-		  <Label x:Name="lblTransTypeID" Content="Loại nghiệp vụ" HorizontalAlignment="Left" Margin="25,42,0,0" VerticalAlignment="Top" Width="100" Grid.Column="0" Grid.Row="1" />
+		<L3:L3LookUpEdit x:Name="tdbcTransTypeID" HorizontalAlignment="Left" Margin="120,48,0,0" VerticalAlignment="Top" Width="130" Height="22" DisplayMember="TransTypeID" ValueMember="TransTypeID" PopupWidth="400" ImmediatePopup="True" AutoPopulateColumns="False">
+		  <L3:L3LookUpEdit.StyleSettings>
+			<dxg:MultiSelectLookUpEditStyleSettings
+				HighlightedTextBackground="#F5F5DC"
+				HighlightedTextForeground="Black" />
+		  </L3:L3LookUpEdit.StyleSettings>
 
+		  <L3:L3LookUpEdit.PopupContentTemplate>
+			<ControlTemplate>
+			  <L3:L3GridControl x:Name="PART_GridControl">
+				<L3:L3GridControl.Columns>
+				  <dxg:GridColumn FieldName="TransTypeID" Header="Mã" Width="110" HorizontalHeaderContentAlignment="Center" AutoFilterCondition="Contains" />
+				  <dxg:GridColumn FieldName="TransTypeName" Header="Diễn giải" Width="200" HorizontalHeaderContentAlignment="Center" AutoFilterCondition="Contains" />
+				</L3:L3GridControl.Columns>
+				<L3:L3GridControl.View>
+				  <dxg:TableView HorizontalScrollbarVisibility="Auto" VerticalScrollbarVisibility="Auto" ShowCheckBoxSelectorColumn="True" ShowAutoFilterRow="True" ShowFilterPanelMode="Never" AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False" AutoWidth="True" AllowBestFit="True" BestFitArea="All" BestFitMode="AllRows" RowStyle="{StaticResource SelectedRowStyle}" />
+				</L3:L3GridControl.View>
+			  </L3:L3GridControl>
+			</ControlTemplate>
+		  </L3:L3LookUpEdit.PopupContentTemplate>
+		</L3:L3LookUpEdit>
+		<Label x:Name="lblTransTypeID" Content="Loại nghiệp vụ" HorizontalAlignment="Left" Margin="25,48,0,0" VerticalAlignment="Top" Height="26" Width="96" />
 
         <Label x:Name="lblVoucherNo" Content="Phiếu VCNB" VerticalAlignment="Top" Margin="284,18,0,0" Height="26" RenderTransformOrigin="0.489,1.038" HorizontalAlignment="Left" Width="96" />
         <L3:L3LookUpEdit x:Name="tdbcSTVoucherNo" PopupWidth="510" Margin="374,16,-278,0" VerticalAlignment="Top" TabIndex="11" DisplayMember="VoucherNo" ValueMember="VoucherNo" ImmediatePopup="True" AutoPopulateColumns="False" Height="22" HorizontalAlignment="Left" Width="442">
@@ -182,7 +183,7 @@ Set @XAMLContent=N'
         </L3:L3LookUpEdit>
         <!--Begin Button Filter-->
       </Grid>
-      <L3:L3GridControl x:Name="tdbg" EnableSmartColumnsGeneration="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Width="Auto" Height="Auto" Margin="0,60,0,-0.2" Grid.RowSpan="2">
+      <L3:L3GridControl x:Name="tdbg" EnableSmartColumnsGeneration="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Width="Auto" Height="Auto" Margin="0,85,0,-0.2" Grid.RowSpan="2">
         <L3:L3GridControl.ContextMenu>
           <ContextMenu>
             <MenuItem Name="mnsListAll" Header="Liệt kê tất cả" />
