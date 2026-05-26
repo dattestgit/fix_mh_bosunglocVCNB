@@ -29,7 +29,7 @@ ALTER PROCEDURE D34P3230
  @IsDate    TINYINT = 0,  
  @RDVoucherNo  VARCHAR(1000) = '',  
  @Type    VARCHAR(50) = ''  ,
- @TransTypeID VARCHAR(1000)
+ @TransTypeID VARCHAR(1000)=''
 )   
 AS   
 SET NOCOUNT ON  
