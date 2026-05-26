@@ -27,12 +27,13 @@ Set @XmlContent=N'
   <datasets>
     <dataset name="STVoucherNo" queryText=" SELECT   RDVoucherNo AS VoucherNo, DescriptionU AS VoucherDesc, RDVoucherDate AS VoucherDate               FROM   D07T0009 WITH(NOLOCK)               WHERE  KindVoucherID = 3 AND DivisionID = value[''pDivisionID'']                  AND TranYear*100+TranMonth BETWEEN value[''vTranYearFr'']*100+value[''vTranMonthFr''] AND value[''vTranYearTo'']*100+value[''vTranMonthTo'']               ORDER BY RDVoucherDate DESC, RDVoucherNo ASC               " />
     <dataset name="Periods" queryText="Select Distinct REPLACE(STR(TranMonth, 2), '' '', ''0'') + ''/'' + STR(TranYear, 4) AS Period, TranMonth, TranYear From D03T9999 WITH(NOLOCK) Order By TranYear DESC, TranMonth DESC" />
+	<dataset name="TransTypeID" queryText="EXEC D34P3230  value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
     <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
     <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''LoadGrid'',value[''vTransTypeID''] " />
   </datasets>
   <commands>
     <command name="cmdFilter">
-      <add type="required" control="tdbcSTVoucherNo" />
+      <add type="required" control="tdbcSTVoucherNo;tdbcTransTypeID" />
       <add type="addCol" control="tdbg" dataset="dsCreateCol" />
       <add type="load" control="tdbg" dataset="dsGrid" />
     </command>
