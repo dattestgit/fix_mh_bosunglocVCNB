@@ -27,7 +27,7 @@ Set @XmlContent=N'
   <datasets>
     <dataset name="STVoucherNo" queryText=" SELECT   RDVoucherNo AS VoucherNo, DescriptionU AS VoucherDesc, RDVoucherDate AS VoucherDate               FROM   D07T0009 WITH(NOLOCK)               WHERE  KindVoucherID = 3 AND DivisionID = value[''pDivisionID'']                  AND TranYear*100+TranMonth BETWEEN value[''vTranYearFr'']*100+value[''vTranMonthFr''] AND value[''vTranYearTo'']*100+value[''vTranMonthTo'']               ORDER BY RDVoucherDate DESC, RDVoucherNo ASC               " />
     <dataset name="Periods" queryText="Select Distinct REPLACE(STR(TranMonth, 2), '' '', ''0'') + ''/'' + STR(TranYear, 4) AS Period, TranMonth, TranYear From D03T9999 WITH(NOLOCK) Order By TranYear DESC, TranMonth DESC" />
-	<dataset name="TransTypeID" queryText="EXEC D34P3230  value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
+	<dataset name="TransTypeID" queryText="EXEC D34P3230  value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''TransTypeID'',value[''vTransTypeID''] " />
     <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
     <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''LoadGrid'',value[''vTransTypeID''] " />
   </datasets>
@@ -139,7 +139,7 @@ Set @XAMLContent=N'
         <RadioButton x:Name="optReportDate" Visibility="Hidden" GroupName="Time" Content="Ngày" Margin="12,52,0,0" VerticalAlignment="Top" Height="27" TabIndex="6" HorizontalAlignment="Left" Width="47" />
 		
 		<!--Begin Combo Loại nghiệp vụ-->
-		  <dxg:LookUpEdit x:Name="tdbcTransTypeID" HorizontalAlignment="Left" Margin="390,17,0,0" VerticalAlignment="Top" Width="120" DisplayMember="TransTypeID" ValueMember="TransTypeID" PopupWidth="400" ImmediatePopup="True" AutoPopulateColumns="False" Grid.Column="0" Grid.Row="1">
+		  <dxg:LookUpEdit x:Name="tdbcTransTypeID" HorizontalAlignment="Left" Margin="120,44,0,0" VerticalAlignment="Top" Width="180" DisplayMember="TransTypeID" ValueMember="TransTypeID" PopupWidth="400" ImmediatePopup="True" AutoPopulateColumns="False" Grid.Column="0" Grid.Row="1">
 			<dxg:LookUpEdit.StyleSettings>
 			  <dxg:SearchLookUpEditStyleSettings HighlightedTextBackground="#F5F5DC" HighlightedTextForeground="Black" />
 			</dxg:LookUpEdit.StyleSettings>
@@ -157,7 +157,7 @@ Set @XAMLContent=N'
 			  </ControlTemplate>
 			</dxg:LookUpEdit.PopupContentTemplate>
 		  </dxg:LookUpEdit>
-		  <Label x:Name="lblTransTypeID" Content="Loại nghiệp vụ" HorizontalAlignment="Left" Margin="280,17,0,0" VerticalAlignment="Top" Width="100" Grid.Column="0" Grid.Row="1" />
+		  <Label x:Name="lblTransTypeID" Content="Loại nghiệp vụ" HorizontalAlignment="Left" Margin="25,42,0,0" VerticalAlignment="Top" Width="100" Grid.Column="0" Grid.Row="1" />
 
 
         <Label x:Name="lblVoucherNo" Content="Phiếu VCNB" VerticalAlignment="Top" Margin="284,18,0,0" Height="26" RenderTransformOrigin="0.489,1.038" HorizontalAlignment="Left" Width="96" />
