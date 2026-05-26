@@ -21,12 +21,14 @@ Set @XmlContent=N'
     <variable name="voptIsPeriod" control="optPeriod" dataType="number" binding="" />
     <variable name="voptIsDate" control="optReportDate" dataType="number" binding="" />
     <variable name="vRDVoucherNo" control="tdbcSTVoucherNo" dataType="text" binding="VoucherNo" />
+
+	<variable name="vTransTypeID" control="tdbcTransTypeID" dataType="text" binding="TransTypeID" />
   </variables>
   <datasets>
     <dataset name="STVoucherNo" queryText=" SELECT   RDVoucherNo AS VoucherNo, DescriptionU AS VoucherDesc, RDVoucherDate AS VoucherDate               FROM   D07T0009 WITH(NOLOCK)               WHERE  KindVoucherID = 3 AND DivisionID = value[''pDivisionID'']                  AND TranYear*100+TranMonth BETWEEN value[''vTranYearFr'']*100+value[''vTranMonthFr''] AND value[''vTranYearTo'']*100+value[''vTranMonthTo'']               ORDER BY RDVoucherDate DESC, RDVoucherNo ASC               " />
     <dataset name="Periods" queryText="Select Distinct REPLACE(STR(TranMonth, 2), '' '', ''0'') + ''/'' + STR(TranYear, 4) AS Period, TranMonth, TranYear From D03T9999 WITH(NOLOCK) Order By TranYear DESC, TranMonth DESC" />
-    <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'' " />
-    <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''LoadGrid'' " />
+    <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
+    <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''LoadGrid'',value[''vTransTypeID''] " />
   </datasets>
   <commands>
     <command name="cmdFilter">
@@ -35,13 +37,14 @@ Set @XmlContent=N'
       <add type="load" control="tdbg" dataset="dsGrid" />
     </command>
     <command name="cmdPrint">
-      <add type="print" reportTypeID="D34F2311" moduleID="34" sqlMain="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''Print'' " />
+      <add type="print" reportTypeID="D34F2311" moduleID="34" sqlMain="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''Print'',value[''vTransTypeID''] " />
     </command>
   </commands>
   <form-items>
     <control name="tdbcSTVoucherNo" type="combo" dataset="STVoucherNo" dataDependent="tdbcPeriodIDFr;tdbcPeriodIDTo" required="true" />
     <control name="tdbcPeriodIDFr" type="combo" dataset="Periods" event="SelectedIndexChanged" />
     <control name="tdbcPeriodIDTo" type="combo" dataset="Periods" event="SelectedIndexChanged" />
+	<control name="tdbcTransTypeID" type="combo" dataset="TransTypeID" event="SelectedIndexChanged" required="true" />
     <control name="btnFilter" type="button" event="Click" command="cmdFilter" hotKey="F5" isAutoClick="true" />
     <control name="mnuPrint" event="Click" command="cmdPrint" />
   </form-items>
