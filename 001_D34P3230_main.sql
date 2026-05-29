@@ -47,9 +47,33 @@ SELECT @D07_QuantityDecimals = ISNULL(@D07_QuantityDecimals, 0)
 SET @RDVoucherNo = REPLACE(@RDVoucherNo,'(','')  
 SET @RDVoucherNo = REPLACE(@RDVoucherNo,')','')  
 SET @RDVoucherNo = REPLACE(@RDVoucherNo,'''','')  
+
+SET @TransTypeID = ISNULL(@TransTypeID, '')
 SET @TransTypeID = REPLACE(@TransTypeID, '(', '')
 SET @TransTypeID = REPLACE(@TransTypeID, ')', '')
 SET @TransTypeID = REPLACE(@TransTypeID, '''', '')
+SET @TransTypeID = REPLACE(@TransTypeID, ',', ';')
+SET @TransTypeID = REPLACE(@TransTypeID, ' ', '')
+
+IF @Type = 'STVoucherNo'
+BEGIN
+    SELECT  T0009.RDVoucherNo AS VoucherNo,
+            T0009.DescriptionU AS VoucherDesc,
+            T0009.RDVoucherDate AS VoucherDate
+    FROM    D07T0009 T0009 WITH(NOLOCK)
+    WHERE   T0009.KindVoucherID = 3
+        AND T0009.DivisionID = @DivisionID
+        AND T0009.TranYear * 100 + T0009.TranMonth 
+            BETWEEN CONVERT(INT, @FromYear) * 100 + CONVERT(INT, @FromMonth)
+                AND CONVERT(INT, @ToYear) * 100 + CONVERT(INT, @ToMonth)
+        AND (
+                @TransTypeID = ''
+                OR CHARINDEX(';' + T0009.TransTypeID + ';', ';' + @TransTypeID + ';') > 0
+            )
+    ORDER BY T0009.RDVoucherDate DESC, T0009.RDVoucherNo ASC
+
+    RETURN
+END
   
 SELECT  DISTINCT   
    T0009.RDVoucherNo, T0009.RDVoucherID, T0011.InventoryID, T0011.LocationNo, T2020.VoucherID, T2020.CPlanID  
