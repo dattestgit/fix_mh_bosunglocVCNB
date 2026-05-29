@@ -61,8 +61,7 @@ BEGIN
             T0009.DescriptionU AS VoucherDesc,
             T0009.RDVoucherDate AS VoucherDate
     FROM    D07T0009 T0009 WITH(NOLOCK)
-    WHERE   T0009.KindVoucherID = 3
-        AND T0009.DivisionID = @DivisionID
+    WHERE   T0009.DivisionID = @DivisionID
         AND T0009.TranYear * 100 + T0009.TranMonth 
             BETWEEN CONVERT(INT, @FromYear) * 100 + CONVERT(INT, @FromMonth)
                 AND CONVERT(INT, @ToYear) * 100 + CONVERT(INT, @ToMonth)
