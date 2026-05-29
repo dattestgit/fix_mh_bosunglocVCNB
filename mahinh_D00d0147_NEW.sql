@@ -29,8 +29,8 @@ Set @XmlContent=N'
     <dataset name="Periods" queryText="Select Distinct REPLACE(STR(TranMonth, 2), '' '', ''0'') + ''/'' + STR(TranYear, 4) AS Period, TranMonth, TranYear From D03T9999 WITH(NOLOCK) Order By TranYear DESC, TranMonth DESC" />
 	<dataset name="TransTypeID"
          queryText="EXEC D05P0001 5, value[''pUserID''], value[''pHostName''], 0, 1, '''', '''', 0" />
-    <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''AddCol'',value[''vTransTypeID''] " />
-    <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''LoadGrid'',value[''vTransTypeID''] " />
+    <dataset name="dsCreateCol" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], ISNULL(value[''vRDVoucherNo''], '''') + ''|TT|'' + ISNULL(value[''vTransTypeID''], ''AddCol'' " />
+    <dataset name="dsGrid" queryText="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], ISNULL(value[''vRDVoucherNo''], '''') + ''|TT|'' + ISNULL(value[''vTransTypeID''], ''LoadGrid'' " />
   </datasets>
   <commands>
     <command name="cmdFilter">
@@ -39,7 +39,7 @@ Set @XmlContent=N'
       <add type="load" control="tdbg" dataset="dsGrid" />
     </command>
     <command name="cmdPrint">
-      <add type="print" reportTypeID="D34F2311" moduleID="34" sqlMain="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], value[''vRDVoucherNo''], ''Print'',value[''vTransTypeID''] " />
+      <add type="print" reportTypeID="D34F2311" moduleID="34" sqlMain="EXEC D34P3230 value[''pDivisionID''], value[''pUserID''], value[''pHostName''], value[''vTranMonthFr''],value[''vTranYearFr''],value[''vTranMonthTo''],value[''vTranYearTo''],value[''vReportDateFromFilter''],value[''vReportDateToFilter''],             value[''voptIsPeriod''], value[''voptIsDate''], ISNULL(value[''vRDVoucherNo''], '''') + ''|TT|'' + ISNULL(value[''vTransTypeID''], ''Print'' " />
     </command>
   </commands>
   <form-items>
